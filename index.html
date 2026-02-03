@@ -117,41 +117,103 @@
 
   <script>
     const yes = document.getElementById("yes");
-    const no = document.getElementById("no");
-    const msg = document.getElementById("msg");
-    const music = document.getElementById("music");
+const no = document.getElementById("no");
+const msg = document.getElementById("msg");
+const music = document.getElementById("music");
+const screen = document.querySelector(".screen");
 
-    let locked = false;
+let noCount = 0;
+let yesLocked = false;
 
-    yes.onclick = () => {
-      if (locked) return;
-      yes.style.animation = "heartbeat 1s";
-      document.body.classList.add("glow");
-      msg.innerHTML = "Shaniii 💖<br>My Valentine. Always. 😘";
-      music.play();
-      hearts();
-    };
+/* YES */
+yes.addEventListener("click", () => {
+  if (yesLocked) return;
 
-    no.ontouchstart = no.onmouseover = () => {
-      locked = true;
-      no.style.left = Math.random() * 80 + "vw";
-      no.style.top = Math.random() * 60 + "vh";
-      setTimeout(() => locked = false, 300);
-    };
+  yes.style.animation = "heartbeat 1s";
+  document.body.classList.add("glow");
 
-    function hearts() {
-      for (let i = 0; i < 30; i++) {
-        const h = document.createElement("div");
-        h.textContent = "💖";
-        h.style.position = "absolute";
-        h.style.left = Math.random() * 100 + "vw";
-        h.style.top = "100vh";
-        h.style.fontSize = "24px";
-        h.style.animation = "floatUp 4s linear";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 4000);
-      }
-    }
+  msg.innerHTML = "Thinking... 💭";
+
+  setTimeout(() => {
+    msg.innerHTML =
+      "Shaniii 💖<br>You are my Valentine today, tomorrow and forever 😘<br><br>I love you ❤️";
+    music.play();
+    createHearts();
+  }, 2000);
+});
+
+/* NO – mobile first */
+no.addEventListener("touchstart", triggerNo);
+no.addEventListener("click", triggerNo);
+
+function triggerNo(e) {
+  e.preventDefault();
+  noCount++;
+  yesLocked = true;
+
+  no.style.animation = "shake 0.4s";
+  no.style.position = "absolute";
+
+  let x, y;
+  do {
+    x = Math.random() * 70;
+    y = Math.random() * 50;
+  } while (x > 30 && x < 55 && y > 20 && y < 45);
+
+  no.style.left = x + "vw";
+  no.style.top = y + "vh";
+
+  setTimeout(() => {
+    yesLocked = false;
+    no.style.animation = "";
+  }, 300);
+
+  if (noCount === 3) {
+    msg.innerHTML = "🙈 Hey! Why are you running?";
+    spawnFakeYes();
+  }
+
+  if (noCount > 5) {
+    msg.innerHTML = "Okay okay 😭 I surrender… choose Yes 💖";
+  }
+}
+
+/* Fake YES buttons – guaranteed visible */
+function spawnFakeYes() {
+  for (let i = 0; i < 4; i++) {
+    const fake = document.createElement("button");
+    fake.textContent = "Yes 😘";
+    fake.className = "fake-yes";
+
+    fake.style.position = "absolute";
+    fake.style.left = Math.random() * 80 + "vw";
+    fake.style.top = Math.random() * 60 + "vh";
+    fake.style.zIndex = "10";
+
+    fake.addEventListener("click", () => fake.remove());
+
+    screen.appendChild(fake);
+
+    setTimeout(() => fake.remove(), 1500);
+  }
+}
+
+/* Hearts */
+function createHearts() {
+  for (let i = 0; i < 40; i++) {
+    const heart = document.createElement("div");
+    heart.textContent = "💖";
+    heart.style.position = "absolute";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.animation = "floatUp 4s linear";
+    screen.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+  }
+}
+
   </script>
 </body>
 </html>

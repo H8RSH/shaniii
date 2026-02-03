@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Shaniii 💖</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+
+    .screen {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 34px;
+      color: #b30059;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 15px 0 30px;
+      color: #800040;
+    }
+
+    .buttons {
+      position: relative;
+      width: 100vw;
+      height: 220px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 14px 32px;
+      margin: 15px;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #yes {
+      background-color: #ff3366;
+      color: white;
+      z-index: 2;
+    }
+
+    #no {
+      background-color: white;
+      color: #ff3366;
+      position: absolute;
+    }
+
+    #msg {
+      margin-top: 25px;
+      font-size: 22px;
+      color: #b30059;
+      padding: 0 20px;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      40% { transform: scale(1); }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .glow {
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 25px #ff4d88 inset; }
+      to { box-shadow: 0 0 70px #ff99cc inset; }
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="screen">
+    <h1>Hey Shaniii 💖</h1>
+    <h2>Will you be my Valentine? 🌹</h2>
+
+    <div class="buttons">
+      <button id="yes">Yes 😘</button>
+      <button id="no">No 🙈</button>
+    </div>
+
+    <p id="msg"></p>
+  </div>
+
+  <audio id="music">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
+  </audio>
+
+  <script>
+    const yes = document.getElementById("yes");
+    const no = document.getElementById("no");
+    const msg = document.getElementById("msg");
+    const music = document.getElementById("music");
+
+    let locked = false;
+
+    yes.onclick = () => {
+      if (locked) return;
+      yes.style.animation = "heartbeat 1s";
+      document.body.classList.add("glow");
+      msg.innerHTML = "Shaniii 💖<br>My Valentine. Always. 😘";
+      music.play();
+      hearts();
+    };
+
+    no.ontouchstart = no.onmouseover = () => {
+      locked = true;
+      no.style.left = Math.random() * 80 + "vw";
+      no.style.top = Math.random() * 60 + "vh";
+      setTimeout(() => locked = false, 300);
+    };
+
+    function hearts() {
+      for (let i = 0; i < 30; i++) {
+        const h = document.createElement("div");
+        h.textContent = "💖";
+        h.style.position = "absolute";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.top = "100vh";
+        h.style.fontSize = "24px";
+        h.style.animation = "floatUp 4s linear";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 4000);
+      }
+    }
+  </script>
+</body>
+</html>

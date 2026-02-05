@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rose Day for Shaniii 🌹</title>
+<title>For Shaniii 🌹</title>
 
 <style>
 * {
@@ -14,16 +14,44 @@
 body {
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
+  font-family: 'Courier New', cursive;
+  background: radial-gradient(circle at top, #1a0026, #000000);
+  color: white;
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* Moon */
+.moon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-size: 40px;
 }
 
 /* Center rose */
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
 .rose {
-  font-size: 80px;
+  font-size: 90px;
   cursor: pointer;
   animation: glow 2s infinite alternate;
 }
@@ -33,17 +61,16 @@ body {
   to { transform: scale(1.1); }
 }
 
+/* Message */
 #message {
-  position: absolute;
-  bottom: 15%;
-  text-align: center;
+  margin-top: 30px;
   font-size: 22px;
-  color: #800040;
   opacity: 0;
-  transition: opacity 1.5s;
+  transition: opacity 2s;
+  max-width: 80%;
 }
 
-/* Falling petals */
+/* Petals */
 .petal {
   position: absolute;
   top: -50px;
@@ -56,13 +83,22 @@ body {
     transform: translateY(110vh);
   }
 }
+
+/* Glow effect */
+.glowScreen {
+  box-shadow: 0 0 80px #ff0066 inset;
+}
 </style>
 </head>
 
 <body>
 
-<div class="rose" id="rose">🌹</div>
-<div id="message"></div>
+<div class="moon">🌙</div>
+
+<div class="center">
+  <div class="rose" id="rose">🌹</div>
+  <div id="message"></div>
+</div>
 
 <audio id="music">
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
@@ -73,27 +109,44 @@ const rose = document.getElementById("rose");
 const message = document.getElementById("message");
 const music = document.getElementById("music");
 
+/* Create stars */
+for (let i = 0; i < 80; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.width = Math.random() * 3 + "px";
+  star.style.height = star.style.width;
+  star.style.top = Math.random() * 100 + "vh";
+  star.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(star);
+}
+
+/* Rose click */
 rose.addEventListener("click", () => {
   rose.textContent = "🌹✨";
+  document.body.classList.add("glowScreen");
+
   message.innerHTML =
-    "Happy Rose Day Shaniii 🌹💖<br>This rose carries all my love for you.";
+    "Happy Rose Day Shaniii 🌹💖<br><br>\
+    Under this moon and these stars ✨<br>\
+    This rose carries all my love for you.<br><br>\
+    Always yours ❤️";
+
   message.style.opacity = "1";
   music.play();
 });
 
-/* Create falling petals */
+/* Falling petals */
 function createPetal() {
   const petal = document.createElement("div");
   petal.textContent = "🌸";
   petal.className = "petal";
   petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  petal.style.animationDuration = (Math.random() * 3 + 4) + "s";
   document.body.appendChild(petal);
-
-  setTimeout(() => petal.remove(), 6000);
+  setTimeout(() => petal.remove(), 7000);
 }
 
-setInterval(createPetal, 300);
+setInterval(createPetal, 400);
 </script>
 
 </body>

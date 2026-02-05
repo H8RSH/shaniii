@@ -2,91 +2,93 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Shaniii 🌹</title>
+<title>For Shaniii 🌹💖</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
-body {
-  height: 100vh;
-  overflow: hidden;
+body{
+  height:100vh;
+  overflow:hidden;
   font-family: 'Courier New', cursive;
   background: radial-gradient(circle at top, #1a0026, #000000);
-  color: white;
+  color:white;
 }
 
 /* Stars */
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
+.star{
+  position:absolute;
+  background:white;
+  border-radius:50%;
   animation: twinkle 2s infinite alternate;
 }
-
-@keyframes twinkle {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
+@keyframes twinkle{
+  from{opacity:0.3;}
+  to{opacity:1;}
 }
 
 /* Moon */
-.moon {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  font-size: 40px;
+.moon{
+  position:absolute;
+  top:40px;
+  right:40px;
+  font-size:40px;
 }
 
-/* Center rose */
-.center {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
+/* Center */
+.center{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
-.rose {
-  font-size: 90px;
-  cursor: pointer;
+/* Rose */
+.rose{
+  font-size:90px;
+  cursor:pointer;
   animation: glow 2s infinite alternate;
 }
-
-@keyframes glow {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+@keyframes glow{
+  from{transform:scale(1);}
+  to{transform:scale(1.1);}
 }
 
 /* Message */
-#message {
-  margin-top: 30px;
-  font-size: 22px;
-  opacity: 0;
-  transition: opacity 2s;
-  max-width: 80%;
+#message{
+  margin-top:30px;
+  font-size:22px;
+  max-width:85%;
+  min-height:80px;
 }
 
 /* Petals */
-.petal {
-  position: absolute;
-  top: -50px;
-  font-size: 20px;
-  animation: fall linear infinite;
+.petal{
+  position:absolute;
+  top:-50px;
+  font-size:20px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{ transform:translateY(110vh); }
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(110vh);
-  }
+/* Fireworks */
+.fire{
+  position:absolute;
+  font-size:25px;
+  animation: explode 1s ease-out forwards;
+}
+@keyframes explode{
+  from{ transform:scale(0); opacity:1;}
+  to{ transform:scale(2); opacity:0;}
 }
 
-/* Glow effect */
-.glowScreen {
-  box-shadow: 0 0 80px #ff0066 inset;
+/* Screen glow */
+.glowScreen{
+  box-shadow:0 0 100px #ff0066 inset;
 }
 </style>
 </head>
@@ -110,44 +112,8 @@ const message = document.getElementById("message");
 const music = document.getElementById("music");
 
 /* Create stars */
-for (let i = 0; i < 80; i++) {
-  const star = document.createElement("div");
-  star.className = "star";
-  star.style.width = Math.random() * 3 + "px";
-  star.style.height = star.style.width;
-  star.style.top = Math.random() * 100 + "vh";
-  star.style.left = Math.random() * 100 + "vw";
-  document.body.appendChild(star);
-}
-
-/* Rose click */
-rose.addEventListener("click", () => {
-  rose.textContent = "🌹✨";
-  document.body.classList.add("glowScreen");
-
-  message.innerHTML =
-    "Happy Rose Day Shaniii 🌹💖<br><br>\
-    Under this moon and these stars ✨<br>\
-    This rose carries all my love for you.<br><br>\
-    Always yours ❤️";
-
-  message.style.opacity = "1";
-  music.play();
-});
-
-/* Falling petals */
-function createPetal() {
-  const petal = document.createElement("div");
-  petal.textContent = "🌸";
-  petal.className = "petal";
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = (Math.random() * 3 + 4) + "s";
-  document.body.appendChild(petal);
-  setTimeout(() => petal.remove(), 7000);
-}
-
-setInterval(createPetal, 400);
-</script>
-
-</body>
-</html>
+for(let i=0;i<80;i++){
+  const star=document.createElement("div");
+  star.className="star";
+  star.style.width=Mat
+  

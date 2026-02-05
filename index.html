@@ -1,219 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Shaniii 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Day for Shaniii 🌹</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    }
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
 
-    .screen {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+/* Center rose */
+.rose {
+  font-size: 80px;
+  cursor: pointer;
+  animation: glow 2s infinite alternate;
+}
 
-    h1 {
-      font-size: 34px;
-      color: #b30059;
-    }
+@keyframes glow {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
 
-    h2 {
-      font-size: 22px;
-      margin: 15px 0 30px;
-      color: #800040;
-    }
+#message {
+  position: absolute;
+  bottom: 15%;
+  text-align: center;
+  font-size: 22px;
+  color: #800040;
+  opacity: 0;
+  transition: opacity 1.5s;
+}
 
-    .buttons {
-      position: relative;
-      width: 100vw;
-      height: 220px;
-    }
+/* Falling petals */
+.petal {
+  position: absolute;
+  top: -50px;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
 
-    button {
-      font-size: 20px;
-      padding: 14px 32px;
-      margin: 15px;
-      border-radius: 40px;
-      border: none;
-      cursor: pointer;
-    }
-
-    #yes {
-      background-color: #ff3366;
-      color: white;
-      z-index: 2;
-    }
-
-    #no {
-      background-color: white;
-      color: #ff3366;
-      position: absolute;
-    }
-
-    #msg {
-      margin-top: 25px;
-      font-size: 22px;
-      color: #b30059;
-      padding: 0 20px;
-    }
-
-    @keyframes heartbeat {
-      0% { transform: scale(1); }
-      25% { transform: scale(1.1); }
-      40% { transform: scale(1); }
-      60% { transform: scale(1.15); }
-      100% { transform: scale(1); }
-    }
-
-    .glow {
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 0 25px #ff4d88 inset; }
-      to { box-shadow: 0 0 70px #ff99cc inset; }
-    }
-
-    @keyframes floatUp {
-      from { transform: translateY(0); opacity: 1; }
-      to { transform: translateY(-120vh); opacity: 0; }
-    }
-  </style>
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="screen">
-    <h1>Hey Shaniii 💖</h1>
-    <h2>Will you be my Valentine? 🌹</h2>
 
-    <div class="buttons">
-      <button id="yes">Yes 😘</button>
-      <button id="no">No 🙈</button>
-    </div>
+<div class="rose" id="rose">🌹</div>
+<div id="message"></div>
 
-    <p id="msg"></p>
-  </div>
+<audio id="music">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
 
-  <audio id="music">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
-  </audio>
-
-  <script>
-    const yes = document.getElementById("yes");
-const no = document.getElementById("no");
-const msg = document.getElementById("msg");
+<script>
+const rose = document.getElementById("rose");
+const message = document.getElementById("message");
 const music = document.getElementById("music");
-const screen = document.querySelector(".screen");
 
-let noCount = 0;
-let yesLocked = false;
-
-/* YES */
-yes.addEventListener("click", () => {
-  if (yesLocked) return;
-
-  yes.style.animation = "heartbeat 1s";
-  document.body.classList.add("glow");
-
-  msg.innerHTML = "Thinking... 💭";
-
-  setTimeout(() => {
-    msg.innerHTML =
-      "Shaniii 💖<br>You are my Valentine today, tomorrow and forever 😘<br><br>I love you ❤️";
-    music.play();
-    createHearts();
-  }, 2000);
+rose.addEventListener("click", () => {
+  rose.textContent = "🌹✨";
+  message.innerHTML =
+    "Happy Rose Day Shaniii 🌹💖<br>This rose carries all my love for you.";
+  message.style.opacity = "1";
+  music.play();
 });
 
-/* NO – mobile first */
-no.addEventListener("touchstart", triggerNo);
-no.addEventListener("click", triggerNo);
+/* Create falling petals */
+function createPetal() {
+  const petal = document.createElement("div");
+  petal.textContent = "🌸";
+  petal.className = "petal";
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(petal);
 
-function triggerNo(e) {
-  e.preventDefault();
-  noCount++;
-  yesLocked = true;
-
-  no.style.animation = "shake 0.4s";
-  no.style.position = "absolute";
-
-  let x, y;
-  do {
-    x = Math.random() * 70;
-    y = Math.random() * 50;
-  } while (x > 30 && x < 55 && y > 20 && y < 45);
-
-  no.style.left = x + "vw";
-  no.style.top = y + "vh";
-
-  setTimeout(() => {
-    yesLocked = false;
-    no.style.animation = "";
-  }, 300);
-
-  if (noCount === 3) {
-    msg.innerHTML = "🙈 Hey! Why are you running?";
-    spawnFakeYes();
-  }
-
-  if (noCount > 5) {
-    msg.innerHTML = "Okay okay 😭 I surrender… choose Yes 💖";
-  }
+  setTimeout(() => petal.remove(), 6000);
 }
 
-/* Fake YES buttons – guaranteed visible */
-function spawnFakeYes() {
-  for (let i = 0; i < 4; i++) {
-    const fake = document.createElement("button");
-    fake.textContent = "Yes 😘";
-    fake.className = "fake-yes";
+setInterval(createPetal, 300);
+</script>
 
-    fake.style.position = "absolute";
-    fake.style.left = Math.random() * 80 + "vw";
-    fake.style.top = Math.random() * 60 + "vh";
-    fake.style.zIndex = "10";
-
-    fake.addEventListener("click", () => fake.remove());
-
-    screen.appendChild(fake);
-
-    setTimeout(() => fake.remove(), 1500);
-  }
-}
-
-/* Hearts */
-function createHearts() {
-  for (let i = 0; i < 40; i++) {
-    const heart = document.createElement("div");
-    heart.textContent = "💖";
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "100vh";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
-    heart.style.animation = "floatUp 4s linear";
-    screen.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 4000);
-  }
-}
-
-  </script>
 </body>
 </html>

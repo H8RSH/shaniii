@@ -1,119 +1,229 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Shaniii 🌹💖</title>
+<meta charset="UTF-8">
+<title>Love ❤️ Shaniii</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
 body{
-  height:100vh;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(to right,#ff758c,#ff7eb3);
+  text-align:center;
   overflow:hidden;
-  font-family: 'Courier New', cursive;
-  background: radial-gradient(circle at top, #1a0026, #000000);
   color:white;
 }
 
-/* Stars */
-.star{
-  position:absolute;
-  background:white;
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
+}
+
+.character{
+  margin-top:40px;
+  animation:float 3s infinite ease-in-out;
+}
+
+.face{
+  width:150px;
+  height:150px;
+  background:#ffd1dc;
   border-radius:50%;
-  animation: twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-  from{opacity:0.3;}
-  to{opacity:1;}
+  margin:auto;
+  position:relative;
 }
 
-/* Moon */
-.moon{
+.eye{
+  width:15px;
+  height:15px;
+  background:black;
+  border-radius:50%;
   position:absolute;
-  top:40px;
-  right:40px;
-  font-size:40px;
+  top:50px;
+}
+.eye.left{left:40px;}
+.eye.right{right:40px;}
+
+.mouth{
+  width:40px;
+  height:10px;
+  background:black;
+  border-radius:20px;
+  position:absolute;
+  bottom:40px;
+  left:55px;
+  transition:0.1s;
 }
 
-/* Center */
-.center{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+.talking{
+  height:25px !important;
 }
 
-/* Rose */
-.rose{
-  font-size:90px;
+.bubble{
+  background:white;
+  color:black;
+  padding:15px;
+  border-radius:20px;
+  width:75%;
+  margin:20px auto;
+  min-height:60px;
+  font-size:18px;
+}
+
+button{
+  padding:12px 25px;
+  font-size:16px;
+  border:none;
+  border-radius:20px;
+  margin:10px;
   cursor:pointer;
-  animation: glow 2s infinite alternate;
-}
-@keyframes glow{
-  from{transform:scale(1);}
-  to{transform:scale(1.1);}
-}
-
-/* Message */
-#message{
-  margin-top:30px;
-  font-size:22px;
-  max-width:85%;
-  min-height:80px;
+  background:#ff4d6d;
+  color:white;
+  transition:0.3s;
+  position:relative;
 }
 
-/* Petals */
-.petal{
+button:hover{
+  transform:scale(1.1);
+}
+
+.rose{
   position:absolute;
   top:-50px;
-  font-size:20px;
-  animation:fall linear infinite;
-}
-@keyframes fall{
-  to{ transform:translateY(110vh); }
-}
-
-/* Fireworks */
-.fire{
-  position:absolute;
   font-size:25px;
-  animation: explode 1s ease-out forwards;
-}
-@keyframes explode{
-  from{ transform:scale(0); opacity:1;}
-  to{ transform:scale(2); opacity:0;}
+  animation:fall 6s linear infinite;
 }
 
-/* Screen glow */
-.glowScreen{
-  box-shadow:0 0 100px #ff0066 inset;
+@keyframes fall{
+  to{transform:translateY(100vh);}
+}
+
+.hidden{display:none;}
+
+.hug{
+  font-size:100px;
+  animation:float 2s infinite;
 }
 </style>
 </head>
 
 <body>
 
-<div class="moon">🌙</div>
-
-<div class="center">
-  <div class="rose" id="rose">🌹</div>
-  <div id="message"></div>
-</div>
-
-<audio id="music">
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+<audio id="bgmusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c4cbf9c9a.mp3?filename=romantic-background-112191.mp3">
 </audio>
 
-<script>
-const rose = document.getElementById("rose");
-const message = document.getElementById("message");
-const music = document.getElementById("music");
+<div class="character">
+  <div class="face">
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="mouth" id="mouth"></div>
+  </div>
+</div>
 
-/* Create stars */
-for(let i=0;i<80;i++){
-  const star=document.createElement("div");
-  star.className="star";
-  star.style.width=Mat
-  
+<div class="bubble" id="dialogue">
+Hi Shaniii… it’s Love ❤️
+</div>
+
+<div id="buttons">
+  <button onclick="nextStep()">Tap Me Shaniii 💕</button>
+</div>
+
+<script>
+
+let step=0;
+
+const dialogues=[
+"Hi Shaniii… it’s Love ❤️",
+"I made this little world just for you 🌹",
+"Can you catch this button first? 😜",
+"Okay okay… I’ll behave now.",
+"This rose is only for you Shaniii 🌹",
+"And now I need to ask you something important..."
+];
+
+function speak(text){
+  const mouth=document.getElementById("mouth");
+  mouth.classList.add("talking");
+
+  const speech=new SpeechSynthesisUtterance(text);
+  speech.rate=1;
+  speech.pitch=1.1;
+  speech.lang="en-US";
+
+  speech.onend=()=>mouth.classList.remove("talking");
+  speechSynthesis.speak(speech);
+}
+
+function nextStep(){
+  step++;
+
+  if(step < dialogues.length){
+    document.getElementById("dialogue").innerText=dialogues[step];
+    speak(dialogues[step]);
+  }
+
+  if(step===2){
+    let btn=document.querySelector("button");
+    btn.onmouseover=function(){
+      btn.style.left=Math.random()*300+"px";
+      btn.style.top=Math.random()*200+"px";
+      btn.style.position="relative";
+    };
+  }
+
+  if(step===4){
+    createRoses();
+  }
+
+  if(step===5){
+    showProposal();
+  }
+}
+
+function showProposal(){
+  document.getElementById("dialogue").innerText=
+  "Shaniii… Will you be mine forever? ❤️";
+
+  document.getElementById("buttons").innerHTML=
+  "<button onclick='yesAnswer()'>YES 💖</button>" +
+  "<button id='noBtn'>NO 😢</button>";
+
+  let noBtn=document.getElementById("noBtn");
+  noBtn.onmouseover=function(){
+    noBtn.style.position="relative";
+    noBtn.style.left=Math.random()*300+"px";
+    noBtn.style.top=Math.random()*200+"px";
+  };
+}
+
+function yesAnswer(){
+  document.body.innerHTML=
+  "<h1>She Said YESSSSS ❤️</h1>" +
+  "<div class='hug'>🤗❤️🤗</div>" +
+  "<h2>Love & Shaniii Forever 💕</h2>";
+
+  speak("You just made Love the happiest person alive.");
+  createRoses();
+}
+
+function createRoses(){
+  for(let i=0;i<30;i++){
+    let rose=document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerHTML="🌹";
+    rose.style.left=Math.random()*100+"vw";
+    rose.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(rose);
+  }
+}
+
+window.onload=()=>{
+  document.getElementById("bgmusic").play();
+  speak(dialogues[0]);
+};
+
+</script>
+</body>
+</html>

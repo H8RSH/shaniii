@@ -2,228 +2,108 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Love ❤️ Shaniii</title>
-
+<title>Something Important ❤️</title>
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(to right,#ff758c,#ff7eb3);
-  text-align:center;
-  overflow:hidden;
-  color:white;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        overflow: hidden;
+    }
 
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
-  100%{transform:translateY(0)}
-}
+    .card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        max-width: 400px;
+    }
 
-.character{
-  margin-top:40px;
-  animation:float 3s infinite ease-in-out;
-}
+    h1 {
+        color: #ff4d6d;
+    }
 
-.face{
-  width:150px;
-  height:150px;
-  background:#ffd1dc;
-  border-radius:50%;
-  margin:auto;
-  position:relative;
-}
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-.eye{
-  width:15px;
-  height:15px;
-  background:black;
-  border-radius:50%;
-  position:absolute;
-  top:50px;
-}
-.eye.left{left:40px;}
-.eye.right{right:40px;}
+    #yesBtn {
+        background-color: #ff4d6d;
+        color: white;
+    }
 
-.mouth{
-  width:40px;
-  height:10px;
-  background:black;
-  border-radius:20px;
-  position:absolute;
-  bottom:40px;
-  left:55px;
-  transition:0.1s;
-}
+    #noBtn {
+        background-color: #ccc;
+        position: absolute;
+    }
 
-.talking{
-  height:25px !important;
-}
-
-.bubble{
-  background:white;
-  color:black;
-  padding:15px;
-  border-radius:20px;
-  width:75%;
-  margin:20px auto;
-  min-height:60px;
-  font-size:18px;
-}
-
-button{
-  padding:12px 25px;
-  font-size:16px;
-  border:none;
-  border-radius:20px;
-  margin:10px;
-  cursor:pointer;
-  background:#ff4d6d;
-  color:white;
-  transition:0.3s;
-  position:relative;
-}
-
-button:hover{
-  transform:scale(1.1);
-}
-
-.rose{
-  position:absolute;
-  top:-50px;
-  font-size:25px;
-  animation:fall 6s linear infinite;
-}
-
-@keyframes fall{
-  to{transform:translateY(100vh);}
-}
-
-.hidden{display:none;}
-
-.hug{
-  font-size:100px;
-  animation:float 2s infinite;
-}
+    #message {
+        font-size: 18px;
+        margin-top: 20px;
+        min-height: 50px;
+    }
 </style>
 </head>
-
 <body>
 
-<audio id="bgmusic" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c4cbf9c9a.mp3?filename=romantic-background-112191.mp3">
-</audio>
-
-<div class="character">
-  <div class="face">
-    <div class="eye left"></div>
-    <div class="eye right"></div>
-    <div class="mouth" id="mouth"></div>
-  </div>
-</div>
-
-<div class="bubble" id="dialogue">
-Hi Shaniii… it’s Love ❤️
-</div>
-
-<div id="buttons">
-  <button onclick="nextStep()">Tap Me Shaniii 💕</button>
+<div class="card" id="card">
+    <h1>Hey ❤️</h1>
+    <p>Are you ready for something important?</p>
+    <button onclick="startProposal()">Yes 💖</button>
 </div>
 
 <script>
+function startProposal() {
+    document.getElementById("card").innerHTML = `
+        <h1 id="typing"></h1>
+        <div style="margin-top:20px;">
+            <button id="yesBtn" onclick="acceptLove()">Yes 😘</button>
+            <button id="noBtn">No 🙈</button>
+        </div>
+    `;
 
-let step=0;
+    let text = "From the moment you came into my life, everything feels different... brighter... happier. So today, on Propose Day, I just want to ask you one thing... Will you be mine forever? 💍❤️";
+    let i = 0;
+    let speed = 50;
 
-const dialogues=[
-"Hi Shaniii… it’s Love ❤️",
-"I made this little world just for you 🌹",
-"Can you catch this button first? 😜",
-"Okay okay… I’ll behave now.",
-"This rose is only for you Shaniii 🌹",
-"And now I need to ask you something important..."
-];
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("typing").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+    }
 
-function speak(text){
-  const mouth=document.getElementById("mouth");
-  mouth.classList.add("talking");
+    typeWriter();
 
-  const speech=new SpeechSynthesisUtterance(text);
-  speech.rate=1;
-  speech.pitch=1.1;
-  speech.lang="en-US";
-
-  speech.onend=()=>mouth.classList.remove("talking");
-  speechSynthesis.speak(speech);
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", function() {
+        noBtn.style.top = Math.random() * window.innerHeight + "px";
+        noBtn.style.left = Math.random() * window.innerWidth + "px";
+    });
 }
 
-function nextStep(){
-  step++;
-
-  if(step < dialogues.length){
-    document.getElementById("dialogue").innerText=dialogues[step];
-    speak(dialogues[step]);
-  }
-
-  if(step===2){
-    let btn=document.querySelector("button");
-    btn.onmouseover=function(){
-      btn.style.left=Math.random()*300+"px";
-      btn.style.top=Math.random()*200+"px";
-      btn.style.position="relative";
-    };
-  }
-
-  if(step===4){
-    createRoses();
-  }
-
-  if(step===5){
-    showProposal();
-  }
+function acceptLove() {
+    document.body.innerHTML = `
+        <div style="text-align:center;">
+            <h1 style="color:#ff4d6d;">Yayyyy 😍❤️</h1>
+            <p style="font-size:20px;">Best decision ever 😌✨</p>
+        </div>
+    `;
 }
-
-function showProposal(){
-  document.getElementById("dialogue").innerText=
-  "Shaniii… Will you be mine forever? ❤️";
-
-  document.getElementById("buttons").innerHTML=
-  "<button onclick='yesAnswer()'>YES 💖</button>" +
-  "<button id='noBtn'>NO 😢</button>";
-
-  let noBtn=document.getElementById("noBtn");
-  noBtn.onmouseover=function(){
-    noBtn.style.position="relative";
-    noBtn.style.left=Math.random()*300+"px";
-    noBtn.style.top=Math.random()*200+"px";
-  };
-}
-
-function yesAnswer(){
-  document.body.innerHTML=
-  "<h1>She Said YESSSSS ❤️</h1>" +
-  "<div class='hug'>🤗❤️🤗</div>" +
-  "<h2>Love & Shaniii Forever 💕</h2>";
-
-  speak("You just made Love the happiest person alive.");
-  createRoses();
-}
-
-function createRoses(){
-  for(let i=0;i<30;i++){
-    let rose=document.createElement("div");
-    rose.classList.add("rose");
-    rose.innerHTML="🌹";
-    rose.style.left=Math.random()*100+"vw";
-    rose.style.animationDuration=(3+Math.random()*3)+"s";
-    document.body.appendChild(rose);
-  }
-}
-
-window.onload=()=>{
-  document.getElementById("bgmusic").play();
-  speak(dialogues[0]);
-};
-
 </script>
+
 </body>
 </html>

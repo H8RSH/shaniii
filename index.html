@@ -1,108 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Something Important ❤️</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Little Surprise For You ❤️</title>
+
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        font-family: 'Arial', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
-        overflow: hidden;
-    }
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top,#ff9a9e,#fecfef,#fad0c4);
+  overflow:hidden;
+}
 
-    .card {
-        background: white;
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        max-width: 400px;
-    }
+button{
+  padding:18px 35px;
+  font-size:20px;
+  border:none;
+  border-radius:40px;
+  background:#ff4b6e;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
 
-    h1 {
-        color: #ff4d6d;
-    }
+button:hover{
+  transform:scale(1.08);
+}
 
-    button {
-        padding: 10px 20px;
-        margin: 10px;
-        border: none;
-        border-radius: 20px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+/* floating hearts */
+.heart{
+  position:absolute;
+  color:#ff4b6e;
+  animation:float 6s linear infinite;
+  opacity:0.7;
+}
 
-    #yesBtn {
-        background-color: #ff4d6d;
-        color: white;
-    }
+@keyframes float{
+  from{transform:translateY(100vh) scale(0.8)}
+  to{transform:translateY(-10vh) scale(1.4)}
+}
 
-    #noBtn {
-        background-color: #ccc;
-        position: absolute;
-    }
+/* overlay card */
+.card{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.6);
+}
 
-    #message {
-        font-size: 18px;
-        margin-top: 20px;
-        min-height: 50px;
-    }
+.card-content{
+  background:white;
+  padding:45px;
+  border-radius:25px;
+  max-width:420px;
+  text-align:center;
+  animation:pop 0.7s ease;
+  box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+
+@keyframes pop{
+  0%{transform:scale(0.2);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+
+h1{
+  color:#ff4b6e;
+}
+
+.bigheart{
+  font-size:45px;
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.25)}
+}
+
+.message{
+  font-size:18px;
+  line-height:1.6;
+  margin-top:10px;
+}
+
+.signature{
+  margin-top:25px;
+  font-size:20px;
+  color:#ff4b6e;
+  font-weight:bold;
+}
+
+.music-note{
+  position:absolute;
+  bottom:15px;
+  font-size:12px;
+  opacity:0.7;
+}
 </style>
 </head>
+
 <body>
 
+<button onclick="openEnvelope()">Open Your Surprise 💌</button>
+
 <div class="card" id="card">
-    <h1>Hey ❤️</h1>
-    <p>Are you ready for something important?</p>
-    <button onclick="startProposal()">Yes 💖</button>
+  <div class="card-content">
+
+    <div class="bigheart">❤️</div>
+
+    <h1>To My Beautiful Girlfriend</h1>
+
+    <div class="message">
+      You are my favorite person in this world.
+      <br><br>
+      Every moment with you feels special,
+      every smile of yours makes my day brighter.
+      <br><br>
+      No matter where life takes us,
+      my heart will always find its way back to you.
+    </div>
+
+    <div class="signature">
+      Forever yours,<br>
+      Shani ❤️
+    </div>
+
+  <div style="margin-top:20px">
+<button onclick="showReasons()" style="background:#ff7aa2;margin-top:10px">100 Reasons I Love You</button>
 </div>
 
+</div>
+</div>
+
+<div id="reasons" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);justify-content:center;align-items:center">
+<div style="background:white;padding:30px;border-radius:20px;max-width:400px;text-align:center">
+<h2>Why I Love You ❤️</h2>
+<p id="reasonText"></p>
+<button onclick="nextReason()">Next Reason</button>
+</div>
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f3c9e5c2.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function startProposal() {
-    document.getElementById("card").innerHTML = `
-        <h1 id="typing"></h1>
-        <div style="margin-top:20px;">
-            <button id="yesBtn" onclick="acceptLove()">Yes 😘</button>
-            <button id="noBtn">No 🙈</button>
-        </div>
-    `;
-
-    let text = "From the moment you came into my life, everything feels different... brighter... happier. So today, on Propose Day, I just want to ask you one thing... Will you be mine forever? 💍❤️";
-    let i = 0;
-    let speed = 50;
-
-    function typeWriter() {
-        if (i < text.length) {
-            document.getElementById("typing").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        }
-    }
-
-    typeWriter();
-
-    const noBtn = document.getElementById("noBtn");
-    noBtn.addEventListener("mouseover", function() {
-        noBtn.style.top = Math.random() * window.innerHeight + "px";
-        noBtn.style.left = Math.random() * window.innerWidth + "px";
-    });
+function openEnvelope(){
+  const env=document.createElement('div');
+  env.innerHTML=`<div style="position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,0.6);" id="env">
+  <div style="background:white;padding:40px;border-radius:20px;text-align:center;max-width:350px;animation:pop 0.6s">
+  <h2>💌 A letter from Shani</h2>
+  <p>Tap to open my heart</p>
+  <button onclick="openCard()" style="margin-top:10px">Open Letter ❤️</button>
+  </div>
+  </div>`;
+  document.body.appendChild(env);
 }
 
-function acceptLove() {
-    document.body.innerHTML = `
-        <div style="text-align:center;">
-            <h1 style="color:#ff4d6d;">Yayyyy 😍❤️</h1>
-            <p style="font-size:20px;">Best decision ever 😌✨</p>
-        </div>
-    `;
+function openCard(){
+  const e=document.getElementById('env');
+  if(e) e.remove();
+  document.getElementById('card').style.display='flex';
+  document.getElementById('music').play();
 }
+
+/* generate floating hearts */
+const reasons=[
+"Your smile brightens my worst days",
+"You make ordinary moments magical",
+"You understand me like no one else",
+"Your laugh is my favorite sound",
+"You make my life feel complete",
+"Because you are simply you"
+];
+
+let rIndex=0;
+
+function showReasons(){
+  document.getElementById('reasons').style.display='flex';
+  document.getElementById('reasonText').innerText=reasons[rIndex];
+}
+
+function nextReason(){
+  rIndex=(rIndex+1)%reasons.length;
+  document.getElementById('reasonText').innerText=reasons[rIndex];
+}
+
+setInterval(()=>{
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='❤';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.fontSize=(Math.random()*20+10)+'px';
+  heart.style.animationDuration=(Math.random()*3+3)+'s';
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{heart.remove()},6000);
+},300);
 </script>
 
 </body>

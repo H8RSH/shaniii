@@ -1,264 +1,75 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Surprise For Rani ❤️</title>
+  <meta charset="UTF-8">
+  <title>Countdown begins !  ❤️</title>
 
-<style>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
 
-body{
-margin:0;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:Segoe UI;
-background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fad0c4);
-overflow:hidden;
-}
+    .container {
+      background: rgba(0,0,0,0.2);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
 
-/* Envelope */
+    h1 {
+      margin-bottom: 10px;
+    }
 
-.envelope{
-width:230px;
-height:150px;
-background:#ff4b6e;
-border-radius:10px;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-font-size:20px;
-cursor:pointer;
-box-shadow:0 20px 40px rgba(0,0,0,0.3);
-position:relative;
-}
+    #countdown {
+      font-size: 2.5em;
+      margin: 20px 0;
+    }
 
-.envelope:before{
-content:'';
-position:absolute;
-top:-75px;
-border-left:115px solid transparent;
-border-right:115px solid transparent;
-border-bottom:75px solid #ff4b6e;
-}
-
-/* Card */
-
-.card{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:none;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,0.6);
-}
-
-.card-content{
-background:white;
-padding:45px;
-border-radius:25px;
-max-width:420px;
-text-align:center;
-animation:pop 0.6s ease;
-}
-
-@keyframes pop{
-0%{transform:scale(0.3);opacity:0}
-100%{transform:scale(1);opacity:1}
-}
-
-.bigheart{
-font-size:45px;
-animation:beat 1s infinite;
-}
-
-@keyframes beat{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.25)}
-}
-
-.glow{
-color:#ff4b6e;
-font-size:32px;
-text-shadow:0 0 10px #ff4b6e,0 0 20px pink;
-}
-
-.message{
-font-size:18px;
-line-height:1.6;
-margin-top:10px;
-}
-
-/* floating hearts */
-
-.heart{
-position:absolute;
-color:#ff4b6e;
-animation:float 6s linear infinite;
-opacity:0.8;
-}
-
-@keyframes float{
-from{transform:translateY(100vh)}
-to{transform:translateY(-10vh)}
-}
-
-/* falling roses */
-
-.rose{
-position:absolute;
-font-size:22px;
-animation:fall 7s linear infinite;
-}
-
-@keyframes fall{
-from{transform:translateY(-10vh)}
-to{transform:translateY(110vh)}
-}
-
-/* sparkle stars */
-
-.star{
-position:absolute;
-color:white;
-animation:twinkle 2s infinite;
-}
-
-@keyframes twinkle{
-0%,100%{opacity:0.2}
-50%{opacity:1}
-}
-
-/* final love message */
-
-.final{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:45px;
-color:white;
-display:none;
-text-align:center;
-text-shadow:0 0 20px pink,0 0 40px red;
-}
-
-button{
-margin-top:20px;
-padding:12px 25px;
-border:none;
-background:#ff4b6e;
-color:white;
-border-radius:25px;
-cursor:pointer;
-font-size:16px;
-}
-
-</style>
+    .message {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="envelope" onclick="openCard()">
-Tap To Open 💌
+<div class="container">
+  <h1>🎂 Countdown to Your Birthday ❤️</h1>
+  <div id="countdown"></div>
+  <div class="message">Can't wait to celebrate YOU 💖</div>
 </div>
-
-<div class="card" id="card">
-<div class="card-content">
-
-<div class="bigheart">❤️</div>
-
-<h1 class="glow">Rani</h1>
-
-<div class="message">
-Out of all the people in this world,<br>
-my heart somehow found you.<br><br>
-
-You make my days brighter,<br>
-my smiles bigger,<br>
-and my life happier.<br><br>
-
-No matter where life takes us,<br>
-my heart will always come back to you.
-</div>
-
-<br>
-
-<b>Forever yours,<br>Shani ❤️</b>
-
-<br>
-
-<button onclick="showLove()">One More Thing 💖</button>
-
-</div>
-</div>
-
-<div class="final" id="final">
-I LOVE YOU RANI ❤️
-</div>
-
-<audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f3c9e5c2.mp3" type="audio/mpeg">
-</audio>
 
 <script>
+  // Birthday: 5 May 2026
+  const birthday = new Date(2026, 4, 5, 0, 0, 0).getTime();
 
-function openCard(){
-document.querySelector(".envelope").style.display="none"
-document.getElementById("card").style.display="flex"
-document.getElementById("music").play()
-}
+  const timer = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = birthday - now;
 
-/* floating hearts */
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
 
-setInterval(()=>{
-const heart=document.createElement("div")
-heart.className="heart"
-heart.innerHTML="❤"
-heart.style.left=Math.random()*100+"vw"
-heart.style.fontSize=(Math.random()*25+10)+"px"
-heart.style.animationDuration=(Math.random()*3+3)+"s"
-document.body.appendChild(heart)
-setTimeout(()=>{heart.remove()},6000)
-},300)
+    document.getElementById("countdown").innerHTML =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s";
 
-/* roses */
-
-setInterval(()=>{
-const rose=document.createElement("div")
-rose.className="rose"
-rose.innerHTML="🌹"
-rose.style.left=Math.random()*100+"vw"
-rose.style.animationDuration=(Math.random()*4+4)+"s"
-document.body.appendChild(rose)
-setTimeout(()=>{rose.remove()},7000)
-},900)
-
-/* stars */
-
-setInterval(()=>{
-const star=document.createElement("div")
-star.className="star"
-star.innerHTML="✨"
-star.style.left=Math.random()*100+"vw"
-star.style.top=Math.random()*100+"vh"
-star.style.fontSize=(Math.random()*10+10)+"px"
-document.body.appendChild(star)
-setTimeout(()=>{star.remove()},4000)
-},800)
-
-function showLove(){
-document.getElementById("final").style.display="block"
-}
-
+    if (distance < 0) {
+      clearInterval(timer);
+      document.getElementById("countdown").innerHTML = "🎉 Happy Birthday ❤️";
+    }
+  }, 1000);
 </script>
 
 </body>
 </html>
-```

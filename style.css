@@ -156,3 +156,74 @@ button:hover{
 transform:scale(1.08);
 
 }
+.flowerPage{
+
+background:linear-gradient(180deg,#0f1025,#1d1236);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+text-align:center;
+
+overflow:hidden;
+
+}
+
+.flowerContainer{
+
+animation:fade 2s;
+
+padding:30px;
+
+}
+
+.heart{
+
+font-size:90px;
+
+animation:beat 1s infinite;
+
+}
+
+@keyframes beat{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.2);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.flowerContainer h1{
+
+margin-top:20px;
+
+font-size:38px;
+
+color:#ff7db8;
+
+}
+
+.flowerContainer p{
+
+margin:25px 0;
+
+font-size:20px;
+
+color:white;
+
+line-height:1.8;
+
+}

@@ -1,75 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Countdown begins !  ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
+<title>For My Shanii ❤️</title>
 
-    .container {
-      background: rgba(0,0,0,0.2);
-      padding: 40px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    h1 {
-      margin-bottom: 10px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
-    #countdown {
-      font-size: 2.5em;
-      margin: 20px 0;
-    }
+<link rel="stylesheet" href="style.css">
 
-    .message {
-      font-size: 1.2em;
-      opacity: 0.9;
-    }
-  </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>🎂 Countdown to Your Birthday ❤️</h1>
-  <div id="countdown"></div>
-  <div class="message">Can't wait to celebrate YOU 💖</div>
+<div class="background"></div>
+
+<div class="glass">
+
+<h2>Someone made something special...</h2>
+
+<h1>For My Shanii ❤️</h1>
+
+<p>
+Every moment with you became a memory I'll never trade for anything.
+</p>
+
+<button id="giftBtn">
+🎁 Open My Gift
+</button>
+
 </div>
 
-<script>
-  // Birthday: 5 May 2026
-  const birthday = new Date(2026, 4, 5, 0, 0, 0).getTime();
-
-  const timer = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = birthday - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-    const seconds = Math.floor((distance / 1000) % 60);
-
-    document.getElementById("countdown").innerHTML =
-      days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-
-    if (distance < 0) {
-      clearInterval(timer);
-      document.getElementById("countdown").innerHTML = "🎉 Happy Birthday ❤️";
-    }
-  }, 1000);
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
